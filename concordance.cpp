@@ -1,67 +1,31 @@
+/*
+file: concordance.cpp
+author:necati yesil
+description: source code for concordance.h
+DoC: 12/14/18
+*/
+
 #include "concordance.h"
+#include <iostream>
+#include <cassert>
 
 Concordance::Concordance(std::string filename)
 {
     m_filename = filename;
 }
 
-/**
-bool Concordance::is_whitespace(char c)
-{
-  return (c == ' ' || c == '\n' ||  c == '\t');
-}
-
-void Concordance::eat_whitespace(std::ifstream& input)
-{
-    for(int i = 0; i < input.size(); i++)
-    {
-        char c;
-        input.get(c);
-        if(input.eof())
-            break;
-        if(!is_whitespace(c))
-        {
-            input.putback(c); // this will put the character back on the input stream
-            break;
-        }
-    }
-}
-**/
-/**
-std::string Concordance::next_word(std::ifstream& input)
-{
-    std::string word;
-    for(int i = 0; i < input.size(); i++ )
-    {
-        char c;
-        input.get(c);
-        if(input.eof())
-            break;
-        if(!is_whitespace(c))
-        {
-            word += c;
-        }
-        else
-        {
-            eat_whitespace(input);
-            break;
-        }
-    }
-    return word;
-}
-**/
-    
 void Concordance::parse()
 {
     std::ifstream textfile(m_filename.c_str());
     std::string sentence;
     int line_count = 1;
-    while(std::getline(textfile, sentence));
+    while(std::getline(textfile, sentence))
     {
+        std::cout << "bug 1" << std::endl;
         std::istringstream input(sentence);
         std::string word;
         while(input >> word)
-        {
+        {   
             int index = find_word(word);
             
             if (index != -1)
@@ -78,9 +42,9 @@ void Concordance::parse()
 
         }
         
-        line_count += 1;
-        //line_count ++;
+        line_count ++;
     }
+    assert(textfile.is_open());
 }
 
 int Concordance::find_word(std::string word)
@@ -103,8 +67,8 @@ void Concordance::print()
 {
     for(int i = 0; i < m_word_stats.size(); i++)
     {
-        std::cout << m_word_stats[i].get_word() << "|||"
-                  << m_word_stats[i].get_count() << "|||";
+        std::cout << m_word_stats[i].get_word() << " ||| ";
+        std::cout << m_word_stats[i].get_count() << " ||| ";
         m_word_stats[i].print_lines();
         std::cout << std::endl;
     }

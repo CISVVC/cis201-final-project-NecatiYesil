@@ -1,4 +1,11 @@
+/*
+file:word.cpp
+author: necati Yesil
+description: source code for word class
+DoC: 12/14/18
+*/
 #include "word.h"
+#include <iostream>
 
 Word::Word(std::string  word)
 {
@@ -46,6 +53,4 @@ void Word::print_lines()
         }
     }
 }
-
-
 
